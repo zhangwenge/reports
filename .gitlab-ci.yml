@@ -1,0 +1,64 @@
+variables:
+  D_NAMESPACE: "svc"
+  
+before_script:
+  - if [ $CI_BUILD_REF_NAME == "master" ]; then
+  -   D_REGISTRY_URL="c.sondon.net"
+  - else
+  -   D_REGISTRY_URL="c-dev.sondon.net"
+  - fi
+  - if [ $CI_BUILD_REF_NAME == "dev" ]; then
+  -   D_TAG="latest"
+  - else
+  -   D_TAG=${CI_BUILD_REF:0:8}
+  - fi
+  - export IMAGE_NAME=${D_REGISTRY_URL}/${CI_PROJECT_PATH}:${D_TAG}
+
+stages:
+  - build
+  - deploy
+
+build_image:
+  stage: build
+  script:
+    - bash -ex build
+  only:
+    - dev
+    - master
+    - /^release-.*$/
+
+deploy_dev:
+  variables:
+    D_ENV_ACTIVE: "dev"
+  stage: deploy
+  script:
+    - bash -ex deploy
+  environment:
+    name: Devlopment
+    url: 
+  only:
+    - dev
+
+deploy_release:
+  variables:
+    D_ENV_ACTIVE: "release"
+  stage: deploy
+  script:
+    - bash -ex deploy
+  environment:
+    name: Pre-release
+  when: manual
+  only:
+    - /^release-.*$/
+
+deploy_prod:
+  variables:
+    D_ENV_ACTIVE: "prod"
+  stage: deploy
+  script:
+    - bash -ex deploy
+  environment:
+    name: Production
+  when: manual
+  only:
+    - master

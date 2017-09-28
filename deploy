@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+D_NAME=${CI_PROJECT_NAME:-"report"}
+D_NAMESPACE=${D_NAMESPACE:-"svc"}
+D_REF=${CI_BUILD_REF_NAME:-"dev"}
+IMAGE_NAME=${IMAGE_NAME:-"c-dev.sondon.net/svc/report:latest"}
+CI_BUILD_REF=${CI_BUILD_REF:-""}
+D_ENV_ACTIVE=${D_ENV_ACTIVE:-"dev"}
+
+#最小运行一个副本
+min=1
+#最多运行5个副本
+max=6
+#CPU使用率超过80%就开启新副本
+cpu=80
+
+#请求资源
+request_mem="300M"
+request_cpu="500m"
+#限制资源
+limit_mem="512M"
+limit_cpu="400m"
+
+if [ $D_REF == "master" ]; then
+	kc="kubectl -n $D_NAMESPACE --kubeconfig /home/sondon/.kube/config-prod"
+elif [ $D_REF == "dev" ]; then
+	kc="kubectl -n $D_NAMESPACE --kubeconfig /home/sondon/.kube/config-dev"
+else
+	kc="kubectl -n $D_NAMESPACE --kubeconfig /home/sondon/.kube/config-release"	
+fi
+
+
+if ! $kc get svc $D_NAME; then
+	echo "创建服务:$D_NAME"
+	cp temp.svc.yaml svc.yaml
+	sed -i "s#{name}#${D_NAME}#" svc.yaml
+	sed -i "s#{namespace}#${D_NAMESPACE}#" svc.yaml
+	sed -i "s#{ref}#${D_REF}#" svc.yaml
+	$kc create -f svc.yaml
+fi
+
+cp temp.deploy.yaml deploy.yaml
+sed -i "s#{name}#${D_NAME}#" deploy.yaml
+sed -i "s#{namespace}#${D_NAMESPACE}#" deploy.yaml
+sed -i "s#{image}#${IMAGE_NAME}#" deploy.yaml
+sed -i "s#{ref}#${D_REF}#" deploy.yaml
+sed -i "s#{request_mem}#${request_mem}#" deploy.yaml
+sed -i "s#{request_cpu}#${request_cpu}#" deploy.yaml
+sed -i "s#{limit_mem}#${limit_mem}#" deploy.yaml
+sed -i "s#{limit_cpu}#${limit_cpu}#" deploy.yaml
+sed -i "s#{build}#${CI_BUILD_REF}#" deploy.yaml
+sed -i "s#{env_active}#${D_ENV_ACTIVE}#" deploy.yaml
+
+
+
+if ! $kc get deployment $D_NAME; then
+	echo "创建应用部署:$D_NAME"
+	$kc create -f deploy.yaml --record
+	if ! $kc get hpa $D_NAME; then
+		echo "设置自动伸缩min:$min,max:$max"
+		$kc autoscale deployment/$D_NAME --min=$min --max=$max --cpu-percent=$cpu
+	fi
+else
+	$kc apply -f deploy.yaml
+
+#	if [ $D_REF == "dev" ]; then
+		$kc delete rs -l app=$D_NAME
+#	fi
+fi

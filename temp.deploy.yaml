@@ -1,0 +1,108 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "{name}"
+  labels:
+    app: "{name}"
+    env: "{ref}"
+    build: "{build}"
+    role: "backend"
+  namespace: "{namespace}"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: "{name}"
+    spec:
+      containers:
+      - name: "{name}"
+        image: "{image}"
+        imagePullPolicy: "Always"
+        resources:
+          requests:
+            memory: "{request_mem}"
+            cpu: "{request_cpu}"
+#          limits:
+#            memory: "{limit_mem}"
+#           cpu: "{limit_cpu}"
+        env:
+        - name: DEPLOY_ENV
+          value: "{ref}"
+        - name: REDIS_ST_HOST
+          valueFrom:
+            secretKeyRef:
+              name: redis-secret
+              key: redis_st_host
+        - name: REDIS_ST_NAME
+          valueFrom:
+            secretKeyRef:
+              name: redis-secret
+              key: redis_st_name
+        - name: REDIS_AUTH
+          valueFrom:
+            secretKeyRef:
+              name: redis-secret
+              key: redis_pw
+        - name: KAFKA_LIST
+          valueFrom:
+            secretKeyRef:
+              name: kafka-secret
+              key: kafka_list
+        - name: ZK_LIST
+          valueFrom:
+            secretKeyRef:
+              name: kafka-secret
+              key: zk_list  
+        - name: MONGODB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongodb_host 
+        - name: MYSQL_MASTER
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql_master 
+        - name: MYSQL_SLAVE
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql_slave
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql_user 
+        - name: MYSQL_PASS
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql_pass 
+        command:
+        - java 
+        - -jar
+        - -Xmx256M
+        - -Xms128M
+        - -Xmn64M
+        - -XX:MaxPermSize64M
+        - /app.jar
+        - --spring.profiles.active={env_active}
+        ports:
+        - name: http
+          containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: "/healthz"
+            port: 80
+          initialDelaySeconds: 120
+          timeoutSeconds: 5
+        volumeMounts:
+        - mountPath: /data/download
+          name: glusterfsvol-download
+      volumes:
+      - glusterfs:
+          endpoints: glusterfs-cluster
+          path: download
+          readOnly: false
+        name: glusterfsvol-download

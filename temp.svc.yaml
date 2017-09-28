@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{name}"
+  labels:
+    app: "{name}"
+    env: "{ref}"
+    role: "backend"
+  namespace: "{namespace}"
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: http
+  selector:
+    app: "{name}"
