@@ -577,19 +577,24 @@ public class DetectRecordReport implements IDetectRecordReport {
 					detectResult.getIndicatorId();
 					String indicatorId = detectResult.getIndicatorId();
 					String modelId = detectResult.getModelId();
+					String modelName = detectResult.getModelName();
 					List<String> indicatorIdList = headList.stream().map(head -> head.getIndicatorId()).collect(Collectors.toList());
 					if(!indicatorIdList.contains(indicatorId)) {
 						TreeMap<String, String> models = new TreeMap<>();
 						//新建一个头部
 						Head head = new Head();
-						models.put(modelId, detectResult.getModelName());
-						//设置模型id和名称
-						head.setModels(models);
 						//设置成分id
 						head.setIndicatorId(indicatorId);
 						
 						//---需要判断
-						Indicator indicator = SDMongo.findOne(Indicator.class, indicatorId);
+						Condition conds4[] = new Condition[] {
+								new Condition("_id", indicatorId),
+								new Condition("state",Operators.eq,1)
+						};
+						Indicator indicator = SDMongo.findOne(Indicator.class, conds4);
+						models.put(modelId, modelName==null?indicator.getIndicatorName():modelName);
+						//设置模型id和名称
+						head.setModels(models);
 						//设置 指标名称，
 						head.setIndicatorName(indicator.getIndicatorName());
 						//设置指标  
@@ -620,7 +625,7 @@ public class DetectRecordReport implements IDetectRecordReport {
 						Map<String, String> models = head.getModels();
 						//判断模型是不是单一
 						if(!models.containsKey(modelId)) {
-							models.put(modelId,detectResult.getModelName());
+							models.put(modelId,modelName==null?head.getIndicatorName():modelName);
 						}
 					}
 				}
@@ -950,7 +955,6 @@ public class DetectRecordReport implements IDetectRecordReport {
 		}
     }
 
-    
     /**
      * 
      * @方法功能：到设备在一定时间的内的  参比，检测记录，扫描的光谱的信息
@@ -1071,7 +1075,16 @@ public class DetectRecordReport implements IDetectRecordReport {
 			return new ResponseEntity(ReportCode.FAILED, ReportCode.FILED_MSG);
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @方法功能：获取要打印的PDF数据
+	 * @方法名称：getCitrusPDF
+	 * @编写时间：2017年9月28日上午9:48:09
+	 * @开发者 ： 张文歌
+	 * @方法参数：
+	 * @返回参数：
+	 */
 	@Override
 	public ResponseEntity getCitrusPDF(String plantId) {
 		try {
@@ -1085,15 +1098,20 @@ public class DetectRecordReport implements IDetectRecordReport {
 			if(plantInfo==null) {
 				return new ResponseEntity(Code.NO_RESULT, ReportCode.NO_DATA);
 			}
+			
 			//查询果园信息
-			Condition conds2[] = new Condition[] {
-					new Condition("_id", plantInfo.getOrchardId()),
-					new Condition("state",Operators.eq,1)
-			};
-			Orchard orchard = SDMongo.findOne(Orchard.class, conds2);
+			Orchard orchard = iServiceApi.getOrchard(plantInfo.getOrchardId());
+			
+//			//查询果园信息
+//			Condition conds2[] = new Condition[] {
+//					new Condition("_id", plantInfo.getOrchardId()),
+//					new Condition("state",Operators.eq,1)
+//			};
+//			Orchard orchard = SDMongo.findOne(Orchard.class, conds2);
+			
 			//查询检测记录
 			Condition conds3[] = new Condition[] {
-				new Condition("plantNo", plantId),
+				new Condition("plantId", plantId),
 				new Condition("state",Operators.eq,1),
 				new Condition("-createTime", Operators.sort)
 			};

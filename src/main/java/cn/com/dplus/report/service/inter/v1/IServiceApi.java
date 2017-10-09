@@ -33,4 +33,6 @@ public interface IServiceApi {
     UserAppInfo getUserAppInfo(String userId);
     
     DevInfo getDevInfo(String dsn);
+    
+    Orchard getOrchard(String id);
 }

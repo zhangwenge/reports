@@ -195,7 +195,8 @@ public class FreeMarkerUtil {
      * @param strUrl 网络连接地址
      * @return 图片Base64码
      */
-    public String getImgBase64ByUrl(String strUrl) {
+    @SuppressWarnings("restriction")
+	public String getImgBase64ByUrl(String strUrl) {
 
         try {
 

@@ -1,9 +1,10 @@
 
 package cn.com.dplus.report.http;
 
-import cn.com.dplus.project.utils.EnvUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import cn.com.dplus.project.utils.EnvUtils;
 
 /**
  * @作用:
@@ -177,5 +178,22 @@ public class API {
     @Value("${spring.http.api.get_dev_info}")
     private void setGetDevInfo(String getDevInfo) {
     	GET_DEV_INFO = deviceUrl() + getDevInfo;
+    }
+    
+    /************************ citrus *****************************/
+    @Value("${spring.http.api.citrus_service_host}")
+    private String CITRUS_SERVICE_HOST;
+    
+    private String citrusUrl(){
+    	return HTTP + EnvUtils.getVal(CITRUS_SERVICE_HOST, CITRUS_SERVICE_HOST);
+    }
+    /**
+     * 获取果园的信息
+     */
+    public static String GET_ORCHARD;
+    
+    @Value("${spring.http.api.get_orchard}")
+    private void setGetOrchard(String getOrchard) {
+    	GET_ORCHARD = citrusUrl() + getOrchard;
     }
 }

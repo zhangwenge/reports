@@ -67,7 +67,7 @@ public class Indicator extends BaseEntity implements Comparable<Indicator>{
 	private Integer updatedAt;
 
 	/** 删除标记 */
-	private Integer flag;
+	private Double state;
 	
 	/** 值标签  定性和定级用  定级支持理化值范围 例 低：10-20 ; 中：20-30*/
 	private Map<String,LabelEntity> valueLabels;
@@ -168,12 +168,12 @@ public class Indicator extends BaseEntity implements Comparable<Indicator>{
 		this.industryName = industryName;
 	}
 
-	public Integer getFlag() {
-		return flag;
+	public Double getState() {
+		return state;
 	}
 
-	public void setFlag(Integer flag) {
-		this.flag = flag;
+	public void setstate(Double state) {
+		this.state = state;
 	}
 
 

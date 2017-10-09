@@ -95,6 +95,6 @@ public class DetectReportController extends V1Controller{
      */
     @RequestMapping(value="/report-citrus",method = RequestMethod.GET)
     public ResponseEntity CitrusReport(@ParamsValid(notNull = true)String plantId) {
-    	return null;
+    	return iDetectRecordReport.getCitrusPDF(plantId);
     }
 }

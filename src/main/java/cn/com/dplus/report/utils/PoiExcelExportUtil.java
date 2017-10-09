@@ -362,6 +362,7 @@ public class PoiExcelExportUtil {
 		bodyStyle2.setBorderRight(BorderStyle.THIN);
 		bodyStyle2.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 		bodyStyle2.setAlignment(HorizontalAlignment.RIGHT);  //靠右居中
+		bodyStyle2.setVerticalAlignment(CellStyle.VERTICAL_CENTER);//垂直居中
 		bodyStyle2.setFillBackgroundColor( IndexedColors.WHITE.index);
 		bodyStyle2.setFillForegroundColor(IndexedColors.WHITE.index);
 		
@@ -371,7 +372,7 @@ public class PoiExcelExportUtil {
 		bodyFont2.setFontName("微软雅黑");
 		
 		bodyStyle2.setFont(bodyFont2);
-		return null;
+		return bodyStyle2;
 	}
 	/**
 	 字体靠右 白色背景  红色字体 10号 
@@ -418,7 +419,7 @@ public class PoiExcelExportUtil {
 		
 		return bodyStyle4;
 	}
-	
+	//蓝色背景，黑色字体 ，靠右垂直居中
 	private static  CellStyle getBodyStyle5(Workbook workbook) {
 		CellStyle bodyStyle5 = workbook.createCellStyle();
 		bodyStyle5.setBorderBottom(BorderStyle.THIN);
@@ -438,7 +439,7 @@ public class PoiExcelExportUtil {
 		bodyStyle5.setFont(bodyFont5);
 		return bodyStyle5;
 	}
-	
+	//蓝色背景 红色字体 靠右垂直居中
 	private static  CellStyle getBodyStyle6(Workbook workbook) {
 		CellStyle bodyStyle6 = workbook.createCellStyle();
 		bodyStyle6.setBorderBottom(BorderStyle.THIN);

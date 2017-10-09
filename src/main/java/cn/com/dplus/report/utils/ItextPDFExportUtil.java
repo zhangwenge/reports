@@ -1,8 +1,10 @@
 package cn.com.dplus.report.utils;
 
 import java.io.ByteArrayOutputStream;
+import java.net.URL;
 import java.util.List;
 
+import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.color.DeviceRgb;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -35,9 +37,12 @@ public class ItextPDFExportUtil {
 			//创建一个文档对象,并设置大小是A4
 			Document document = new Document(pdf,PageSize.A4);
 			
-			//设置特定的编码  使得兼容 --中文
-			PdfFont font = PdfFontFactory.createFont("STSong-Light", "UniGB-UCS2-H", false);
+			//设置  加载思源字体的
+			URL url = ItextPDFExportUtil.class.getClassLoader().getResource("simfang.ttf");
+			String syFont = url.getPath();
 			
+			//设置字体为思源字体
+			PdfFont font = PdfFontFactory.createFont(syFont,PdfEncodings.IDENTITY_H, false);
 			//灰色背景
 			DeviceRgb Gray = new DeviceRgb(242,242,242);
 			
@@ -140,24 +145,26 @@ public class ItextPDFExportUtil {
 			/**设置第三个表格 */
 			Table table3 = new Table(new float[] { 47,88,47,88 }) .setWidthPercent(80);
 			//字体兼容中文 --边框固定--  
-			table3.setFont(font).setFixedLayout().setHorizontalAlignment(HorizontalAlignment.CENTER);
+			table3.setFont(font).setMinHeight(18).setFixedLayout().setHorizontalAlignment(HorizontalAlignment.CENTER);
 			
-			cell = new Cell().setBackgroundColor(Gray).setHeight(26.40f).add(new Paragraph("备注").setBold().setVerticalAlignment(VerticalAlignment.MIDDLE));
+			//取消上边框使得的
+			cell = new Cell().setBackgroundColor(Gray).setHeight(26.40f).setBorderTop(Border.NO_BORDER).add(new Paragraph("备注").setBold().setVerticalAlignment(VerticalAlignment.MIDDLE));
 			table3.addCell(cell);
-			cell = new Cell(1,3).setHeight(26.40f).add(new Paragraph(""));
+			cell = new Cell(1,3).setHeight(26.40f).setBorderTop(Border.NO_BORDER).add(new Paragraph(""));
 			table3.addCell(cell);
 			
-			cell = new Cell().setBackgroundColor(Gray).setHeight(18).add(new Paragraph("检测人").setBold());
+			cell = new Cell().setBackgroundColor(Gray).add(new Paragraph("检测人").setBold());
 			table3.addCell(cell);
 			cell = new Cell().setHeight(18).add(new Paragraph(""));
 			table3.addCell(cell);
 			
-			cell = new Cell().setBackgroundColor(Gray).setHeight(18).add(new Paragraph("审批人").setBold());
+			cell = new Cell().setBackgroundColor(Gray).add(new Paragraph("审批人").setBold());
 			table3.addCell(cell);
 			cell = new Cell().setHeight(18).add(new Paragraph(""));
 			table3.addCell(cell);
 			
 			//标题
+			document.add(new Paragraph("ICitrus柑橘产业服务平台").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(23).setBold());
 			document.add(new Paragraph("检测报告单").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(20).setBold());
 			//加载第一个表格
 			document.add(table1);
@@ -166,6 +173,7 @@ public class ItextPDFExportUtil {
 			//加载第三个表格
 			document.add(table3);
 			
+			//关闭的文档
 			document.close();
 			
 			byte[] bytes = out.toByteArray();

@@ -1,25 +1,17 @@
 package cn.com.dplus.report.entity;
 
-import java.util.List;
-
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
-import org.mongodb.morphia.utils.IndexDirection;
-
+import java.sql.Timestamp;
 import cn.com.dplus.project.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Entity(value="Orchard",db="organization",queryNonPrimary=true,noClassnameStored=true)
 public class Orchard extends BaseEntity{
 	private static final long serialVersionUID = -3883298167455659403L;
 	
 	/** 果园的id  */
-    @Id
-    private String _id;
+    private String id;
 
     /** 果园的名称  */
     private String orcName;
@@ -29,6 +21,9 @@ public class Orchard extends BaseEntity{
 
     /** 种植品种 */
     private String breedName;
+
+    /** 植株数  */
+    private Integer plantAmount;
 
     /** 行政编号  */
     private String adCode;
@@ -42,17 +37,19 @@ public class Orchard extends BaseEntity{
     /** 联系电话  */
     private String phoneNum;
 
-    /** gps信息  */
-    @Indexed(IndexDirection.GEO2D)
-    private List<Double> location;
+    /** 经度 */
+    private Double gpsLong;
+
+    /** 纬度 */
+    private Double gpsLat;
 
     /** 创建时间 */
-    private Long createTime;
+    private Timestamp createTime;
 
     /** 更新时间  */
-    @Indexed(IndexDirection.DESC)
-    private Long updateTime;
+    private Timestamp updateTime;
 
-    /** 记录的状态 */
+    /** 记录的状态 1为正常，-1为删除*/
     private Integer state;
+
 }

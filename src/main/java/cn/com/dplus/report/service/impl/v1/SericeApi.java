@@ -20,6 +20,7 @@ import cn.com.dplus.report.entity.DetectionRecord;
 import cn.com.dplus.report.entity.DevInfo;
 import cn.com.dplus.report.entity.Indicator;
 import cn.com.dplus.report.entity.InnerQualitystandard;
+import cn.com.dplus.report.entity.Orchard;
 import cn.com.dplus.report.entity.Sample;
 import cn.com.dplus.report.entity.TokenData;
 import cn.com.dplus.report.entity.UserAppInfo;
@@ -290,6 +291,20 @@ public class SericeApi implements IServiceApi {
 				return devInfo;
 			}
 		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public Orchard getOrchard(String id) {
+		try {
+			ResponseEntity obj = HttpUtils.get(API.GET_ORCHARD.replace("{id}", id));
+			if(obj.getCode() == Code.SUCCESS && obj!=null) {
+				Orchard orchard = JsonUtil.toObject(JsonUtil.toJson(obj.getResult()),Orchard.class);
+				return orchard;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
