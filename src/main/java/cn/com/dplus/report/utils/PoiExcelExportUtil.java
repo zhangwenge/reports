@@ -27,8 +27,9 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.RegionUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import cn.com.dplus.report.entity.Content;
-import cn.com.dplus.report.entity.Head;
+import cn.com.dplus.report.entity.mysql.DevBind;
+import cn.com.dplus.report.entity.others.Content;
+import cn.com.dplus.report.entity.others.Head;
 /**
  * 
  *  @类功能:	TODO	文件导出工具类
@@ -147,9 +148,6 @@ public class PoiExcelExportUtil {
 		
 		style_Odd.setFont(font_content);
 		
-		
-		
-		
 		/**
 		 * 设置双数行的样式
 		 * 
@@ -169,9 +167,6 @@ public class PoiExcelExportUtil {
 		style_Even.setFillBackgroundColor(IndexedColors.LIGHT_GREEN.index); //填充颜色为橘黄色
 		style_Even.setFont(font_content);
 		
-		
-		
-
 		//遍历需要导出的内容
 		for (Entry<String, List<?>> content : listContent.entrySet()) {
 			
@@ -294,9 +289,6 @@ public class PoiExcelExportUtil {
 		workbook.write(out);
 		workbook.close();
 	}
-
-	
-
 
 	/**
 	 *
@@ -827,8 +819,6 @@ public class PoiExcelExportUtil {
 		return bytes;
 	}
 	
-	
-	
 	/**
 	 * 
 	 * @描__述: 统计用户信息数据  （简略版的会做出修改）
@@ -886,7 +876,6 @@ public class PoiExcelExportUtil {
 		
 		bodyStyle1.setFont(bodyFont1);
 		
-		
 		Sheet sheet = workbook.createSheet("用户检测信息统计");
 		int a = 0;
 		for (List<String> row : content) {
@@ -938,7 +927,283 @@ public class PoiExcelExportUtil {
 				b++;
 			}
 		}
+		workbook.write(out);
+		workbook.close();
+		byte[] bytes = out.toByteArray();
+		out.close();
+		return bytes;
+	}
+	
+	public static byte[] exportReference(Content content,String fileName) throws Exception {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		//创建一个excel表
+		Workbook workbook = getWorkBook(fileName);
+		CellStyle headStyle = deviceStatistics(workbook);
+			Sheet sheet = workbook.createSheet(content.getBreedName());
+			//第一，二列   列宽固定
+			sheet.setColumnWidth(0,256*15+184);
+			sheet.setColumnWidth(1,256*15+184);
+			List<Object> headListNO = content.getHeadListNO();
+			Row row0 = sheet.createRow(0);
+			int a = 0;
+			for (Object object : headListNO) {
+				Cell createCell = row0.createCell(a);
+				if (object instanceof Integer) {
+					createCell.setCellValue((Integer) object);
+				} else if (object instanceof Double) {
+					createCell.setCellValue((Double) object);
+				} else if (object instanceof Float) {
+					createCell.setCellValue((Float) object);
+				} else if (object instanceof Long) {
+					createCell.setCellValue((Long) object);
+				} else if (object instanceof Boolean) {
+					createCell.setCellValue((Boolean) object);
+				} else {
+					createCell.setCellValue(object.toString());
+				}
+				createCell.setCellStyle(headStyle);
+				a++;
+			}
+			List<List<Object>> bodyList = content.getBodyList();
+			
+			int b = 1;
+			for (List<Object> list : bodyList) {
+				Row createRow = sheet.createRow(b);
+				int c = 0;
+				for (Object object : list) {
+					Cell createCell = createRow.createCell(c);
+					if (object instanceof Integer) {
+						createCell.setCellValue((Integer) object);
+					} else if (object instanceof Double) {
+						createCell.setCellValue((Double) object);
+					} else if (object instanceof Float) {
+						createCell.setCellValue((Float) object);
+					} else if (object instanceof Long) {
+						createCell.setCellValue((Long) object);
+					} else if (object instanceof Boolean) {
+						createCell.setCellValue((Boolean) object);
+					} else {
+						createCell.setCellValue(object.toString());
+					}
+					c++;
+				}
+				b++;
+			}
+		workbook.write(out);
+		workbook.close();
+		byte[] bytes = out.toByteArray();
+		out.close();
+		return bytes;
+	}
+	
+	public static byte[] exportSelfTest(Content content,String fileName) throws Exception {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		//创建一个excel表
+		Workbook workbook = getWorkBook(fileName);
+		CellStyle headStyle = deviceStatistics(workbook);
 		
+			Sheet sheet = workbook.createSheet(content.getBreedName());
+			//第一，二列   列宽固定
+			sheet.setColumnWidth(0,256*5+184);
+			sheet.setColumnWidth(1,256*15+184);
+			sheet.setColumnWidth(2,256*15+184);
+			List<Object> headListNO = content.getHeadListNO();
+			Row row0 = sheet.createRow(0);
+			int a = 0;
+			for (Object object : headListNO) {
+				Cell createCell = row0.createCell(a);
+				if (object instanceof Integer) {
+					createCell.setCellValue((Integer) object);
+				} else if (object instanceof Double) {
+					createCell.setCellValue((Double) object);
+				} else if (object instanceof Float) {
+					createCell.setCellValue((Float) object);
+				} else if (object instanceof Long) {
+					createCell.setCellValue((Long) object);
+				} else if (object instanceof Boolean) {
+					createCell.setCellValue((Boolean) object);
+				} else {
+					createCell.setCellValue(object.toString());
+				}
+				createCell.setCellStyle(headStyle);
+				a++;
+			}
+			
+            List<List<Object>> bodyList = content.getBodyList();
+			
+			int b = 1;
+			for (List<Object> list : bodyList) {
+				Row createRow = sheet.createRow(b);
+				int c = 0;
+				for (Object object : list) {
+					Cell createCell = createRow.createCell(c);
+					if (object instanceof Integer) {
+						createCell.setCellValue((Integer) object);
+					} else if (object instanceof Double) {
+						createCell.setCellValue((Double) object);
+					} else if (object instanceof Float) {
+						createCell.setCellValue((Float) object);
+					} else if (object instanceof Long) {
+						createCell.setCellValue((Long) object);
+					} else if (object instanceof Boolean) {
+						createCell.setCellValue((Boolean) object);
+					} else {
+						createCell.setCellValue(object.toString());
+					}
+					c++;
+				}
+				b++;
+			}
+		workbook.write(out);
+		workbook.close();
+		byte[] bytes = out.toByteArray();
+		out.close();
+		return bytes;
+	}
+
+
+	public static byte[] exportSelfSampleSet(Content content,String fileName) throws Exception {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		//创建一个excel表
+		Workbook workbook = getWorkBook(fileName);
+
+		Sheet sheet = workbook.createSheet(content.getBreedName());
+		List<List<Object>> bodyList = content.getBodyList();
+
+		int b = 0;
+		for (List<Object> list : bodyList) {
+			Row createRow = sheet.createRow(b);
+			int c = 0;
+			for (Object object : list) {
+				Cell createCell = createRow.createCell(c);
+				if (object instanceof Integer) {
+					createCell.setCellValue((Integer) object);
+				} else if (object instanceof Double) {
+					createCell.setCellValue((Double) object);
+				} else if (object instanceof Float) {
+					createCell.setCellValue((Float) object);
+				} else if (object instanceof Long) {
+					createCell.setCellValue((Long) object);
+				} else if (object instanceof Boolean) {
+					createCell.setCellValue((Boolean) object);
+				} else {
+					createCell.setCellValue(object.toString());
+				}
+				c++;
+			}
+			b++;
+		}
+		workbook.write(out);
+		workbook.close();
+		byte[] bytes = out.toByteArray();
+		out.close();
+		return bytes;
+	}
+
+	private static CellStyle deviceStatistics(Workbook workbook) {
+		//使用调色板来  对颜色进行定义
+		HSSFPalette palette = ((HSSFWorkbook) workbook).getCustomPalette();
+		palette.setColorAtIndex(IndexedColors.LIGHT_GREEN.index, (byte) 192, (byte) 192, (byte) 192);
+		
+		CellStyle headStyle = workbook.createCellStyle();
+		headStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		headStyle.setBorderBottom(BorderStyle.THIN);	//设置底边框
+		headStyle.setBorderTop(BorderStyle.THIN);   	//设置上边框
+		headStyle.setBorderLeft(BorderStyle.THIN);     //设置左边框
+		headStyle.setBorderRight(BorderStyle.THIN);    //设置右边框
+		headStyle.setAlignment(HorizontalAlignment.CENTER);  //垂直居中
+		headStyle.setFillBackgroundColor(IndexedColors.LIGHT_GREEN.index); //设置前景填充为浅绿色
+		headStyle.setFillForegroundColor(IndexedColors.LIGHT_GREEN.index);  //设置前景填充为浅绿色
+		
+		Font headFont = workbook.createFont();//设置头部的字体
+		headFont.setBold(true);	//设置为粗体
+		headFont.setColor(IndexedColors.BLACK.index); //设置字体颜色为黑色
+		headFont.setFontHeightInPoints((short)9);	//设置字体大小为9
+		headFont.setFontName("微软雅黑");
+		
+		headStyle.setFont(headFont);
+		return headStyle;
+	}
+	
+	public static byte[] exportEquipmentStatistics(List<DevBind> DevBind,String fileName) throws Exception {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		//创建一个excel表
+		Workbook workbook = getWorkBook(fileName);
+		CellStyle headStyle = deviceStatistics(workbook);
+		Sheet sheet = workbook.createSheet("设备统计");
+		Row row0 = sheet.createRow(0);
+		for(int a=0;a<9;a++) {
+			sheet.setColumnWidth(a,256*15+184);
+		}
+		
+		Cell cell0 = row0.createCell(0);
+		cell0.setCellValue("设备SN");
+		cell0.setCellStyle(headStyle);
+			
+		cell0 = row0.createCell(1);
+		cell0.setCellValue("用户名");
+		cell0.setCellStyle(headStyle);
+		
+		cell0 = row0.createCell(2);
+		cell0.setCellValue("参比总数");
+		cell0.setCellStyle(headStyle);
+		
+		cell0 = row0.createCell(3);
+		cell0.setCellValue("自检总数");
+		cell0.setCellStyle(headStyle);
+		
+		cell0= row0.createCell(4);
+		cell0.setCellValue("参比失败次数");
+		cell0.setCellStyle(headStyle);
+		
+		cell0= row0.createCell(5);
+		cell0.setCellValue("自检失败次数");
+		cell0.setCellStyle(headStyle);
+		
+		cell0 = row0.createCell(6);
+		cell0.setCellValue("MGK扫描次数");
+		cell0.setCellStyle(headStyle);
+		
+		cell0 = row0.createCell(7);
+		cell0.setCellValue("快检光谱扫描数");
+		cell0.setCellStyle(headStyle);
+		
+		cell0 = row0.createCell(8);
+		cell0.setCellValue("样品异常数");
+		cell0.setCellStyle(headStyle);
+		
+		int b = 1;
+		for (DevBind devBind : DevBind) {
+			Row createRow = sheet.createRow(b);
+			
+			Cell createCell = createRow.createCell(0);
+			createCell.setCellValue(devBind.getDSn());
+			
+			createCell = createRow.createCell(1);
+			createCell.setCellValue(devBind.getOwnerName());
+			
+			createCell = createRow.createCell(2);
+			createCell.setCellValue(devBind.getReferenceSum());
+			
+			createCell = createRow.createCell(3);
+			createCell.setCellValue(devBind.getSelfTestSum());
+			
+			createCell = createRow.createCell(4);
+			createCell.setCellValue(devBind.getReferenceFail());
+			
+			createCell = createRow.createCell(5);
+			createCell.setCellValue(devBind.getSelfTestFail());
+			
+			createCell = createRow.createCell(6);
+			createCell.setCellValue(devBind.getMgkScanningSum());
+			
+			createCell = createRow.createCell(7);
+			createCell.setCellValue(devBind.getFastTestScanningSum());
+			
+			createCell = createRow.createCell(8);
+			createCell.setCellValue(devBind.getAbnormalSamples());
+			b++;
+		}
 		workbook.write(out);
 		workbook.close();
 		byte[] bytes = out.toByteArray();

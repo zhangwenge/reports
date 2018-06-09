@@ -21,6 +21,10 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 
+import cn.com.dplus.mongodb.SDMongo;
+import cn.com.dplus.mongodb.entity.Condition;
+import cn.com.dplus.report.entity.mongodb.PlantInfo;
+
 public class Demo {
 	//
 	@Test
@@ -103,4 +107,5 @@ public class Demo {
 			
 		}
 	}
+	
 }

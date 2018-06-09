@@ -1,11 +1,14 @@
 package cn.com.dplus.report.service.impl.v1;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import cn.com.dplus.report.entity.mongodb.*;
+import com.google.gson.internal.LinkedTreeMap;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -16,15 +19,10 @@ import cn.com.dplus.project.constant.Code;
 import cn.com.dplus.project.entity.ResponseEntity;
 import cn.com.dplus.project.http.HttpUtils;
 import cn.com.dplus.project.utils.JsonUtil;
-import cn.com.dplus.report.entity.DetectionRecord;
-import cn.com.dplus.report.entity.DevInfo;
-import cn.com.dplus.report.entity.Indicator;
-import cn.com.dplus.report.entity.InnerQualitystandard;
-import cn.com.dplus.report.entity.Orchard;
-import cn.com.dplus.report.entity.Sample;
-import cn.com.dplus.report.entity.TokenData;
-import cn.com.dplus.report.entity.UserAppInfo;
-import cn.com.dplus.report.entity.UserInfo;
+import cn.com.dplus.report.entity.others.DevInfo;
+import cn.com.dplus.report.entity.others.TokenData;
+import cn.com.dplus.report.entity.mysql.UserAppInfo;
+import cn.com.dplus.report.entity.others.UserInfo;
 import cn.com.dplus.report.http.API;
 import cn.com.dplus.report.service.inter.v1.IServiceApi;
 
@@ -114,26 +112,36 @@ public class SericeApi implements IServiceApi {
 
             Map<String, Object> urlParams = new HashMap<>();
             urlParams.put("userId", userId);
-            if (!StringUtils.isEmpty(dSn))
-                urlParams.put("dSn", dSn);
-            if (!StringUtils.isEmpty(breedId))
-                urlParams.put("breedId", breedId);
-            if (!StringUtils.isEmpty(industryId))
-                urlParams.put("industryId", industryId);
-            if (!StringUtils.isEmpty(sampleNo))
-                urlParams.put("sampleNo", sampleNo);
-            if (!StringUtils.isEmpty(planId))
-                urlParams.put("planId", planId);
-            if (!StringUtils.isEmpty(startTime))
-                urlParams.put("startTime", startTime);
-            if (!StringUtils.isEmpty(endTime))
-                urlParams.put("endTime", endTime);
-            if (!StringUtils.isEmpty(pNow))
-                urlParams.put("pNow", pNow);
-            if (!StringUtils.isEmpty(pSize))
-                urlParams.put("pSize", pSize);
-            if (!StringUtils.isEmpty(sort))
-                urlParams.put("sort", sort);
+            if (!StringUtils.isEmpty(dSn)) {
+            	urlParams.put("dSn", dSn);
+            }
+            if (!StringUtils.isEmpty(breedId)) {
+            	urlParams.put("breedId", breedId);
+            }
+            if (!StringUtils.isEmpty(industryId)) {
+				urlParams.put("industryId", industryId);
+			}
+            if (!StringUtils.isEmpty(sampleNo)) {
+				urlParams.put("sampleNo", sampleNo);
+			}
+            if (!StringUtils.isEmpty(planId)) {
+				urlParams.put("planId", planId);
+			}
+            if (!StringUtils.isEmpty(startTime)) {
+				urlParams.put("startTime", startTime);
+			}
+            if (!StringUtils.isEmpty(endTime)) {
+				urlParams.put("endTime", endTime);
+			}
+            if (!StringUtils.isEmpty(pNow)) {
+				urlParams.put("pNow", pNow);
+			}
+            if (!StringUtils.isEmpty(pSize)) {
+				urlParams.put("pSize", pSize);
+			}
+            if (!StringUtils.isEmpty(sort)) {
+				urlParams.put("sort", sort);
+			}
             ResponseEntity obj = HttpUtils.get(API.GET_RECORD, urlParams);
             if (obj != null && obj.getCode() == Code.SUCCESS) {
                 PageInfo<DetectionRecord> list = JsonUtil.toObject(JsonUtil.toJson(obj.getResult()),
@@ -228,12 +236,15 @@ public class SericeApi implements IServiceApi {
                 return null;
             }
             urlParams.put("sampleIds", sampleIds);
-            if (specimenIds != null)
-                urlParams.put("specimenIds", specimenIds);
-            if (getSpectrum != null)
-                urlParams.put("getSpectrum", getSpectrum);
-            if (getAttr != null)
-                urlParams.put("getAttr", getAttr);
+            if (specimenIds != null) {
+				urlParams.put("specimenIds", specimenIds);
+			}
+            if (getSpectrum != null) {
+				urlParams.put("getSpectrum", getSpectrum);
+			}
+            if (getAttr != null) {
+				urlParams.put("getAttr", getAttr);
+			}
             ResponseEntity obj = HttpUtils.post(API.GET_SAMPLES, urlParams);
             if (obj != null && obj.getCode() == Code.SUCCESS) {
                 List<Sample> temp = JsonUtil.toObject(JsonUtil.toJson(obj.getResult()),
@@ -310,6 +321,105 @@ public class SericeApi implements IServiceApi {
 		}
 		return null;
 	}
-    
-    
+
+
+
+    /**
+     * @Author     : 张伟杰
+     * @Description: TODO
+     * @Date       : 9:52 2017/12/20
+     * @MethodNaem : getModelList
+     * @Return     : cn.com.dplus.report.entity.mongodb.DetectionModel
+     * @param      ：sysModel 1 只加载 系统模型2 加载系统和自建 等同于不传3 只加载自建的当为1 时，是加载指定用户的，需要将sn传进来，非指定用户的不用
+    * @param      ：dSn
+    * @param      ：startTime
+    * @param      ：endTime
+    * @param      ：pNow
+    * @param      ：pSize
+    * @param      ：sort
+    * @param      ：userId
+    * @param      ：indicatorId
+    * @param      ：industryId
+    * @param      ：sampleSetId
+    */
+    @Override
+    public List<DetectionModel> getModelList(DetectionModel model, String startTime, String endTime, Integer pNow, Integer pSize, String sort) {
+        try {
+            Map<String,Object> urlParams = new HashMap<>();
+            if (model.getGetSysModel() !=null){
+                urlParams.put("sysModel",model.getGetSysModel());
+            }
+            if (model.getDSn() != null){
+                urlParams.put("dSn",model.getDSn());
+            }
+            if (startTime != null){
+                urlParams.put("startTime",startTime);
+            }
+            if (endTime != null){
+                urlParams.put("endTime",endTime);
+            }
+            if (pNow != null){
+                urlParams.put("pNow",pNow);
+            }
+            if (pSize != null){
+                urlParams.put("pSize",pSize);
+            }
+            if (sort != null){
+                urlParams.put("sort",sort);
+            }
+            if (model.getUserId() != null){
+                urlParams.put("userId",model.getUserId());
+            }
+            if (model.getIndicatorId() != null){
+                urlParams.put("indicatorId",model.getIndicatorId());
+            }
+            if (model.getIndustryId() != null){
+                urlParams.put("industryId",model.getIndustryId());
+            }
+            if (model.getSampleSetId() != null){
+                urlParams.put("sampleSetId",model.getSampleSetId());
+            }
+            ResponseEntity obj = HttpUtils.get(API.GET_MODELS_list, urlParams);
+            if (obj.getCode() == Code.SUCCESS && obj !=null){
+                Type type = new TypeToken<List<DetectionModel>>(){}.getType();
+                LinkedTreeMap<String,Object> we = (LinkedTreeMap<String, Object>) obj.getResult();
+                Object o = we.get("data");
+                List<DetectionModel> detectionModels = JsonUtil.toObject(JsonUtil.toJson(o), type);
+                return detectionModels;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+    /**
+     * @Author     : 张伟杰
+     * @Description: TODO 批量获取指定模型
+     * @Date       : 9:36 2017/12/20
+     * @MethodNaem : getModels
+     * @Return     : cn.com.dplus.report.entity.mongodb.DetectionModel
+     * @param      ：ids
+    */
+    @Override
+    public List<DetectionModel> getModels(String ids) {
+        try {
+            Map<String, Object> urlParams = new HashMap<>();
+            urlParams.put("ids", ids);
+            ResponseEntity obj = HttpUtils.get(API.GET_MODELS,urlParams);
+            if (obj.getCode() == Code.SUCCESS && obj!=null){
+                Object result = obj.getResult();
+                Type type = new TypeToken<List<DetectionModel>>(){}.getType();
+                 List<DetectionModel> detectionModels = JsonUtil.toObject(JsonUtil.toJson(result), type);
+                return detectionModels;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }

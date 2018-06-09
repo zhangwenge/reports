@@ -1,10 +1,14 @@
 package cn.com.dplus.report.service.inter.v1;
 
-import cn.com.dplus.report.entity.*;
-
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import cn.com.dplus.report.entity.mongodb.*;
+import cn.com.dplus.report.entity.others.DevInfo;
+import cn.com.dplus.report.entity.others.TokenData;
+import cn.com.dplus.report.entity.mysql.UserAppInfo;
+import cn.com.dplus.report.entity.others.UserInfo;
 
 /**
  * @作用:
@@ -35,4 +39,8 @@ public interface IServiceApi {
     DevInfo getDevInfo(String dsn);
     
     Orchard getOrchard(String id);
+
+    List<DetectionModel> getModelList(DetectionModel model, String startTime, String endTime, Integer pNow, Integer pSize, String sort);
+
+    List<DetectionModel> getModels(String ids);
 }

@@ -1705,7 +1705,7 @@
           <w:rFonts w:ascii="宋体" w:h-ansi="宋体"/>
           <wx:font wx:val="宋体"/>
           <w:b/>
-          <w:color w:val="2E74B5"/>
+          <w:color w:val="000000"/>
           <w:sz w:val="30"/>
         </w:rPr>
       </w:pPr>
@@ -1714,7 +1714,7 @@
           <w:rFonts w:ascii="宋体" w:h-ansi="宋体" w:hint="fareast"/>
           <wx:font wx:val="宋体"/>
           <w:b/>
-          <w:color w:val="2E74B5"/>
+          <w:color w:val="000000"/>
           <w:sz w:val="30"/>
         </w:rPr>
         <w:t>${company}</w:t>
@@ -1809,14 +1809,14 @@
           <w:p wsp:rsidR="006036EA" wsp:rsidRPr="007F4AF3" wsp:rsidRDefault="002B3DFF">
             <w:pPr>
               <w:rPr>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
             <w:r wsp:rsidRPr="007F4AF3">
               <w:rPr>
                 <w:rFonts w:hint="fareast"/>
                 <wx:font wx:val="宋体"/>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
               <w:t>${breedName}</w:t>
             </w:r>
@@ -1859,12 +1859,12 @@
               <w:rPr>
                 <w:rFonts w:ascii="宋体" w:h-ansi="宋体"/>
                 <wx:font wx:val="宋体"/>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
             <w:r>
               <w:rPr>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
               <w:t>${sampleNo}</w:t>
             </w:r>
@@ -1910,14 +1910,14 @@
           <w:p wsp:rsidR="00A95A35" wsp:rsidRPr="007F4AF3" wsp:rsidRDefault="00A95A35">
             <w:pPr>
               <w:rPr>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
             <w:r>
               <w:rPr>
                 <w:rFonts w:hint="fareast"/>
                 <wx:font wx:val="宋体"/>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
               <w:t>${deviceUserLabel!}</w:t>
             </w:r>
@@ -1958,13 +1958,13 @@
           <w:p wsp:rsidR="00A95A35" wsp:rsidRPr="007F4AF3" wsp:rsidRDefault="00D54696">
             <w:pPr>
               <w:rPr>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
             <w:r>
               <w:rPr>
                 <w:rFonts w:hint="fareast"/>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
               <w:t>${typeName!}</w:t>
             </w:r>
@@ -1996,7 +1996,7 @@
                 <wx:font wx:val="宋体"/>
                 <w:b/>
               </w:rPr>
-              <w:t>温度</w:t>
+              <w:t>设备温度</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -2010,13 +2010,13 @@
           <w:p wsp:rsidR="00D54696" wsp:rsidRPr="007F4AF3" wsp:rsidRDefault="00D54696" wsp:rsidP="00D54696">
             <w:pPr>
               <w:rPr>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
             <w:r>
               <w:rPr>
                 <w:rFonts w:hint="fareast"/>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
               <#if detectorT??>
               <w:t>${detectorT!}℃</w:t>
@@ -2047,7 +2047,7 @@
                 <wx:font wx:val="宋体"/>
                 <w:b/>
               </w:rPr>
-              <w:t>湿度</w:t>
+              <w:t>设备湿度</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -2061,13 +2061,13 @@
           <w:p wsp:rsidR="00D54696" wsp:rsidRDefault="00D54696" wsp:rsidP="00D54696">
             <w:pPr>
               <w:rPr>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
             <w:r>
               <w:rPr>
                 <w:rFonts w:hint="fareast"/>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
               <#if detectorH??>
               <w:t>${detectorH!}%RH</w:t>
@@ -2204,13 +2204,13 @@
           <w:p wsp:rsidR="00D54696" wsp:rsidRPr="007F4AF3" wsp:rsidRDefault="00D54696" wsp:rsidP="00D54696">
             <w:pPr>
               <w:rPr>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
             <w:r wsp:rsidRPr="007F4AF3">
               <w:rPr>
                 <w:rFonts w:hint="fareast"/>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
               <w:t>${detectTime}</w:t>
             </w:r>
@@ -2461,7 +2461,7 @@
               <w:jc w:val="left"/>
               <w:rPr>
                 <w:b/>
-                <w:color w:val="FF0000"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
             <w:r wsp:rsidRPr="00CB560C">
@@ -2469,7 +2469,7 @@
                 <w:rFonts w:hint="fareast"/>
                 <wx:font wx:val="宋体"/>
                 <w:b/>
-                <w:color w:val="FF0000"/>
+                <w:color w:val="000000"/>
               </w:rPr>
               <w:t>${attriSet[attri_index].key}</w:t>
             </w:r>
@@ -2484,14 +2484,14 @@
           <w:p wsp:rsidR="00CB560C" wsp:rsidRPr="00CB560C" wsp:rsidRDefault="00CB560C" wsp:rsidP="00CB560C">
             <w:pPr>
               <w:rPr>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
             <w:r wsp:rsidRPr="00CB560C">
               <w:rPr>
                 <w:rFonts w:hint="fareast"/>
                 <wx:font wx:val="宋体"/>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
               <w:t>${attriSet[attri_index].value}</w:t>
             </w:r>
@@ -2509,7 +2509,7 @@
               <w:jc w:val="left"/>
               <w:rPr>
                 <w:b/>
-                <w:color w:val="FF0000"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
             <w:r wsp:rsidRPr="00CB560C">
@@ -2517,7 +2517,7 @@
                 <w:rFonts w:hint="fareast"/>
                 <wx:font wx:val="宋体"/>
                 <w:b/>
-                <w:color w:val="FF0000"/>
+                <w:color w:val="000000"/>
               </w:rPr>
               <w:t><#if (attri_index+1)<(attriSet?size)>${attriSet[attri_index+1].key}</#if></w:t>
             </w:r>
@@ -2533,14 +2533,14 @@
           <w:p wsp:rsidR="00CB560C" wsp:rsidRPr="00CB560C" wsp:rsidRDefault="00CB560C" wsp:rsidP="00CB560C">
             <w:pPr>
               <w:rPr>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
             <w:r wsp:rsidRPr="00CB560C">
               <w:rPr>
                 <w:rFonts w:hint="fareast"/>
                 <wx:font wx:val="宋体"/>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val=""/>
               </w:rPr>
               <w:t><#if (attri_index+1)<(attriSet?size)>${attriSet[attri_index+1].value}</#if></w:t>
             </w:r>
@@ -2763,14 +2763,14 @@
           <w:p wsp:rsidR="00D54696" wsp:rsidRPr="007F4AF3" wsp:rsidRDefault="00D54696" wsp:rsidP="00D54696">
             <w:pPr>
               <w:rPr>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
             <aml:annotation aml:id="0" w:type="Word.Bookmark.Start" w:name="OLE_LINK1"/>
             <w:r wsp:rsidRPr="007F4AF3">
               <w:rPr>
                 <wx:font wx:val="宋体"/>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
               <w:t>${ration.indicatorName}</w:t>
             </w:r>
@@ -2794,12 +2794,12 @@
                 <w:tab w:val="left" w:pos="2386"/>
               </w:tabs>
               <w:rPr>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
             <w:r wsp:rsidRPr="007F4AF3">
               <w:rPr>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
               <w:t>${ration.value}</w:t>
             </w:r>
@@ -2824,7 +2824,7 @@
               </w:tabs>
               <w:rPr>
                 <w:b-cs/>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
             <w:r wsp:rsidRPr="007F4AF3">
@@ -2832,7 +2832,7 @@
                 <w:rFonts w:ascii="宋体" w:h-ansi="宋体" w:cs="宋体" w:hint="fareast"/>
                 <wx:font wx:val="宋体"/>
                 <w:b-cs/>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>              
               <w:t>${ration.standard}</w:t>  
             </w:r>
@@ -2856,7 +2856,7 @@
               </w:tabs>
               <w:rPr>
                 <w:b-cs/>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
             <w:r>
@@ -2864,7 +2864,7 @@
                 <w:rFonts w:hint="fareast"/>
                 <wx:font wx:val="宋体"/>
                 <w:b-cs/>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
               <w:t>${ration.judge}</w:t>			  
             </w:r>
@@ -2943,14 +2943,14 @@
           <w:p wsp:rsidR="00D54696" wsp:rsidRPr="007F4AF3" wsp:rsidRDefault="00D54696" wsp:rsidP="00D54696">
             <w:pPr>
               <w:rPr>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
             <w:r wsp:rsidRPr="007F4AF3">
               <w:rPr>
                 <w:rFonts w:hint="fareast"/>
                 <wx:font wx:val="宋体"/>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
               <w:t>${qualitative.indicatorName}</w:t>
             </w:r>
@@ -2974,14 +2974,14 @@
                 <w:tab w:val="left" w:pos="2386"/>
               </w:tabs>
               <w:rPr>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
             <w:r wsp:rsidRPr="007F4AF3">
               <w:rPr>
                 <w:rFonts w:hint="fareast"/>
                 <wx:font wx:val="宋体"/>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
               <w:t>${qualitative.value}</w:t>
             </w:r>
@@ -3005,7 +3005,7 @@
                 <w:tab w:val="left" w:pos="2386"/>
               </w:tabs>
               <w:rPr>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
           </w:p>
@@ -3027,7 +3027,7 @@
                 <w:tab w:val="left" w:pos="2386"/>
               </w:tabs>
               <w:rPr>
-                <w:color w:val="2E74B5"/>
+                <w:color w:val="000000"/>
               </w:rPr>
             </w:pPr>
           </w:p>

@@ -196,4 +196,24 @@ public class API {
     private void setGetOrchard(String getOrchard) {
     	GET_ORCHARD = citrusUrl() + getOrchard;
     }
+
+    /**************************** model ***********************************/
+    @Value("${spring.http.api.model_svc_host}")
+    private String MODEL_SVC_HOST;
+    private String modelSvcUrl() {
+        return HTTP + EnvUtils.getVal(MODEL_SVC_HOST, MODEL_SVC_HOST);
+    }
+
+    //获取模型列表
+    public static String GET_MODELS_list;
+    @Value("${spring.http.api.get_models_list}")
+    public void  setGGET_MODELS_list (String getModelsList) {
+        GET_MODELS_list = modelSvcUrl() + getModelsList;
+    }
+    //批量获取指定模型列表
+    public static String GET_MODELS;
+    @Value("${spring.http.api.get_models}")
+    public void  setGetGET_MODELS (String getModels) {
+        GET_MODELS = modelSvcUrl() + getModels;
+    }
 }

@@ -3,22 +3,19 @@ package cn.com.dplus.report.aspect;
 import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import cn.com.dplus.project.constant.Code;
 import cn.com.dplus.project.entity.ResponseEntity;
-import cn.com.dplus.report.entity.TokenData;
+import cn.com.dplus.report.entity.others.TokenData;
 import cn.com.dplus.report.service.inter.v1.IServiceApi;
 
 /**
  * @作用:
  * @所在包: cn.com.dplus.report.aspect
- * @开发者: 余浪
+ * @author: 余浪
  * @邮箱: 365617581@qq.com
  * @时间: 2017/4/11
  * @公司: 广州讯动网络科技有限公司
@@ -28,15 +25,15 @@ import cn.com.dplus.report.service.inter.v1.IServiceApi;
 public class ReportControllerAspect {
 
     // 定义切点Pointcut
-    @Pointcut("execution(* cn.com.dplus.report.controller..*(..)) and @annotation(org.springframework.web.bind.annotation.RequestMapping)")
+//    @Pointcut("execution(* cn.com.dplus.report.controller..*(..)) and @annotation(org.springframework.web.bind.annotation.RequestMapping)")
     public void excudeService() {}
 
-    @Autowired
+//    @Autowired
     private IServiceApi iServiceApi;
 
     private final static String RQBody = "RQBody";
 
-    @Around("excudeService()")
+//    @Around("excudeService()")
     public ResponseEntity doAround(ProceedingJoinPoint pjp) throws Throwable{
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         HttpServletRequest request =  ((ServletRequestAttributes) ra).getRequest();

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.dplus.report.dao.IDevBind">
+	
+	<resultMap type="DevBind" id="DevBindInfo">
+		<id property="dId" column="d_id"/>
+		<result property="dSn" column="d_sn"/>
+		<result property="ownerId" column="owner_id"/>
+		<result property="ownerName" column="owner_name"/>
+		<result property="bindTime" column="bind_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="deviceUserLabel" column="device_user_label"/>
+		<result property="userRemark" column="user_remark"/>
+	</resultMap>
+	
+	<select id="selectUserBind" parameterType ="String" resultMap="DevBindInfo">
+		select d_sn ,owner_name,owner_id from dp_device.d_bind_record
+		<where>
+		<trim prefixOverrides="and" suffixOverrides="and">
+		<if test="dSn !=null">
+				d_sn like concat(concat('%',#{dSn}),'%') and
+			</if>
+			<if test="userId!=null">
+				owner_id = ${userId}
+			</if>
+		</trim>
+		</where>
+		 ORDER BY update_time DESC
+	</select>
+	
+</mapper>

@@ -3,7 +3,7 @@ package cn.com.dplus.report.constant;
 /**
  * @作用:
  * @所在包: cn.com.dplus.report.constant
- * @开发者: 余浪
+ * @author: 余浪
  * @邮箱: 365617581@qq.com
  * @时间: 2017/4/6
  * @公司: 广州讯动网络科技有限公司
@@ -11,7 +11,13 @@ package cn.com.dplus.report.constant;
 public class EnumList {
 
     public enum ModelType{
-        RATION("定量",0),
+        /**
+         * 定量
+         */
+    	RATION("定量",0),
+    	/**
+    	 * 定性
+    	 */
         QUALITATIVE("定性",1);
 
         private final String name;
@@ -39,10 +45,25 @@ public class EnumList {
     }
 
     public enum AttriType{
-        TEXT("文本",0),
+        /**
+         * 文本
+         */
+    	TEXT("文本",0),
+    	/**
+    	 * 数字
+    	 */
         NUM("数字",1),
+        /**
+         * boolen
+         */
         BOOL("布尔",2),
+        /**
+         * 枚举
+         */
         ENUM("枚举",3),
+        /**
+         * date
+         */
         DATE("日期",4);
 
         private final String name;

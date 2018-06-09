@@ -4,7 +4,7 @@ package cn.com.dplus.report.constant;
  * 
  * @文件名： protocol.java
  * @所在包： cn.com.dplus.report.constant
- * @开发者： 张文歌
+ * @author： 张文歌  
  * @邮_件：710890559@qq.com
  * @时_间：2017年9月15日上午11:37:20
  * @公_司：广州讯动网络科技有限公司
@@ -31,5 +31,24 @@ public class PactCode {
     //蓝色背景
     public static final String BLUE_BACKGROUND = "1";
     
+    //井号
+    public static final String HASHTAG = "#";
+    
+    //双横线
+    public static final String DOUBLE_MINUS = "--";
+
+    //产地
+    public static final String ORIGIN = "产地";
+
+    //供应商
+    public static final String supplier = "供应商";
+
+    //进货日期
+    public static final String PURCHASE_DATE = "进货日期";
+
+    //样品描述
+    public static final String SAMPLE_DISCRIPTION = "样品描述";
+
+
     
 }
